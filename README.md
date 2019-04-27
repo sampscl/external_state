@@ -3,7 +3,7 @@
 Store state, as a properties structure, externally to a process.
 
 ## Usage
-```
+```elixir
 defmodule MyGenserver do
   use ExternalState, persist: false, props: [foo: true]
 
