@@ -1,0 +1,4 @@
+%{
+  "ets_owner": {:hex, :ets_owner, "1.0.0", "f8408c609c29cb6925c2f71bac07f3e35352786b2c6824ad545f8133a4f3762d", [:mix], [], "hexpm"},
+  "ex2ms": {:hex, :ex2ms, "1.5.0", "19e27f9212be9a96093fed8cdfbef0a2b56c21237196d26760f11dfcfae58e97", [:mix], [], "hexpm"},
+}
