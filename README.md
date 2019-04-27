@@ -42,7 +42,7 @@ The following are added to your module when you `use` ExternalState:
 - ```merge_ex_state/1``` Update the external state with values from the
   parameter, which can be a keyword list or a map.
 
-If ExternalState is `use`d with persist: true, then the external state will
+If ExternalState is `use`d with `persist: true`, then the external state will
 remain valid after the process that calls `init_ex_state/0` exits. This
 is the default.
 
