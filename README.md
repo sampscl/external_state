@@ -1,6 +1,6 @@
 # ExternalState
 
-An API to store state, as a properties structure, externally to a process.
+Store state, as a properties structure, externally to a process.
 
 ## Usage
 ```
@@ -54,7 +54,7 @@ by adding `external_state` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:external_state, "~> 0.1.0"}
+    {:external_state, "~> 1.0.0"}
   ]
 end
 ```
