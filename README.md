@@ -54,7 +54,7 @@ by adding `external_state` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:external_state, "~> 1.0.3"}
+    {:external_state, "~> 1.0.4"}
   ]
 end
 ```
