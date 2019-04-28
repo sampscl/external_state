@@ -57,6 +57,8 @@ defmodule ExternalState do
             if :ets.info(@ex_state_struct) == :undefined do
               EtsOwner.create_table(@ex_state_struct, :set)
               put_ex_state(default_ex_state())
+            else
+              :ok
             end
 
           false ->
