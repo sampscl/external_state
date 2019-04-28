@@ -4,7 +4,7 @@ defmodule ExternalState.MixProject do
   def project do
     [
       app: :external_state,
-      version: "1.0.2",
+      version: "1.0.3",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -26,6 +26,7 @@ defmodule ExternalState.MixProject do
     [
       {:ex2ms, "~> 1.0"},
       {:ets_owner, "~> 1.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev},
     ]
   end
 
@@ -34,9 +35,7 @@ defmodule ExternalState.MixProject do
     Store state, as a properties structure, externally to a process. This is
     particularly useful when you have a genserver that both provides status to
     other genservers (e.g. "I'm working on xyz" or "I'm idle") but also has
-    long-running work that it's doing. Using an external state can prevent other
-    processes from blocking when all they really want is a status update but
-    would normally have to wait for the long-running work to complete first.
+    long-running work that it's doing.
     """
   end
 
