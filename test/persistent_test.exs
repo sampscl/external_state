@@ -5,7 +5,7 @@ defmodule PersistentlStateTest do
   use ExternalState, persist: true, props: [a_var: :foo, other_var: :bar]
 
   test "stores persistent state" do
-    default = %@ex_state_struct{}
+    default = default_ex_state()
     t = Task.async(fn ->
       # initialize the external state within this task
       init_ex_state()
