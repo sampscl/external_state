@@ -3,7 +3,7 @@
 Store state, as a properties structure, externally to a process.
 
 ## Usage
-```
+```elixir
 defmodule MyGenserver do
   use ExternalState, persist: false, props: [foo: true]
 
@@ -34,15 +34,15 @@ end
 ## API
 The following are added to your module when you `use` ExternalState:
 
-- ```@ex_state_struct``` An atom name for your external state structure
-- ```default_ex_state/0``` Get a state structure with default values from props
-- ```init_ex_state/0``` Initialize your external state; must call once
-- ```get_ex_state/0``` Get the current external state
-- ```put_ex_state/1``` Set the external state
-- ```merge_ex_state/1``` Update the external state with values from the
-  parameter, which can be a keyword list or a map.
+- `@ex_state_struct` An atom name for your external state structure
+- `default_ex_state/0` Get a state structure with default values from props
+- `init_ex_state/0` Initialize your external state; must call once, multiple calls are okay
+- `get_ex_state/0` Get the current external state or nil if no init yet
+- `put_ex_state/1` Set the external state, returns the state or nil if no init yet
+- `merge_ex_state/1` Update the external state with values from the
+  parameter, which can be a keyword list of keys and values or a map.
 
-If ExternalState is `use`d with persist: true, then the external state will
+If ExternalState is `use`d with `persist: true`, then the external state will
 remain valid after the process that calls `init_ex_state/0` exits. This
 is the default.
 
@@ -54,7 +54,7 @@ by adding `external_state` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:external_state, "~> 1.0.0"}
+    {:external_state, "~> 1.0.1"}
   ]
 end
 ```
