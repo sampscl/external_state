@@ -16,7 +16,6 @@ defmodule PersistentlStateTest do
     Task.await(t)
 
     # expect that the external state was remembered
-    init_ex_state()
     assert get_ex_state() == %{default| a_var: false}
   end
 
