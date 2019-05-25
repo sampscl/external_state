@@ -8,6 +8,19 @@ defmodule ExternalState do
   The __using__/1 macro introduces the external state data structure and
   the module functions used to interact with the external state.
 
+  ## Functions and Properties
+  The following functions and properties are introduced to the module that
+  `use`s ExternalState:
+
+  - `@ex_state_struct` An atom name for your external state structure
+  - `default_ex_state/0` Get a state structure with default values from props
+  - `init_ex_state/0` Initialize your external state; must call once, multiple calls are okay
+  - `get_ex_state/0` Get the current external state or nil if no init yet
+  - `put_ex_state/1` Set the external state, returns the state or nil if no init yet
+  - `merge_ex_state/1` Update the external state with values from the
+    parameter, which can be a keyword list of keys and values or a map.
+
+
   ## Parameters
   - kwl The keyword list describing the using module's external state. The
     following are supported:
