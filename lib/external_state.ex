@@ -9,30 +9,23 @@ defmodule ExternalState do
   the module functions used to interact with the external state.
 
   ## Parameters
-  - kwl The keyword list describing the using module's external state. The
-    following are supported:
-
-    - {:persist, boolean} Set persist to true for the external state to
-      be persisted after the pid that calls init_ex_state/1 exits. This is
-      the default.
-    - {:props, struct_def} Set the properties of the external state
-      structure. The struct_def is a keyword list identical to what you would
-      use to define any structure.
+  * kwl The keyword list describing the using module's external state. The following are supported:
+    * `{:persist, boolean}` Set persist to true for the external state to be persisted after the pid that calls `init_ex_state/1` exits. This is the default.
+    * `{:props, struct_def}` Set the properties of the external state structure. The struct_def is a keyword list identical to what you would use to define any structure.
 
   ## Functions and Properties
   The following functions and properties are introduced to the module that
   `use`s ExternalState:
 
-  - `@ex_state_struct` An atom name for your external state structure
-  - `default_ex_state/0` Get a state structure with default values from props
-  - `init_ex_state/0` Initialize your external state; must call once, multiple calls are okay
-  - `get_ex_state/0` Get the current external state or nil if no init yet
-  - `put_ex_state/1` Set the external state, returns the state or nil if no init yet
-  - `merge_ex_state/1` Update the external state with values from the
-    parameter, which can be a keyword list of keys and values or a map.
+  * `@ex_state_struct` An atom name for your external state structure
+  * `default_ex_state/0` Get a state structure with default values from props
+  * `init_ex_state/0` Initialize your external state; must call once, multiple calls are okay
+  * `get_ex_state/0` Get the current external state or nil if no init yet
+  * `put_ex_state/1` Set the external state, returns the state or nil if no init yet
+  * `merge_ex_state/1` Update the external state with values from the parameter, which can be a keyword list of keys and values or a map.
 
   ## Usage
-  ```elixir
+  ```
   defmodule MyGenserver do
     use ExternalState, persist: false, props: [foo: true]
 
@@ -59,7 +52,7 @@ defmodule ExternalState do
 
   end
   ```
-"""
+  """
   defmacro __using__(kwl) do
 
     persist = Keyword.get(kwl, :persist, true)
