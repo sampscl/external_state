@@ -8,6 +8,17 @@ defmodule ExternalState do
   The __using__/1 macro introduces the external state data structure and
   the module functions used to interact with the external state.
 
+  ## Parameters
+  - kwl The keyword list describing the using module's external state. The
+    following are supported:
+
+    - {:persist, boolean} Set persist to true for the external state to
+      be persisted after the pid that calls init_ex_state/1 exits. This is
+      the default.
+    - {:props, struct_def} Set the properties of the external state
+      structure. The struct_def is a keyword list identical to what you would
+      use to define any structure.
+
   ## Functions and Properties
   The following functions and properties are introduced to the module that
   `use`s ExternalState:
@@ -20,18 +31,35 @@ defmodule ExternalState do
   - `merge_ex_state/1` Update the external state with values from the
     parameter, which can be a keyword list of keys and values or a map.
 
+  ## Usage
+  ```elixir
+  defmodule MyGenserver do
+    use ExternalState, persist: false, props: [foo: true]
 
-  ## Parameters
-  - kwl The keyword list describing the using module's external state. The
-    following are supported:
+    def init(:ok) do
+      init_ex_state() # external state is now at the defaults specified in use
+    end
 
-    - {:persist, boolean} Set persist to true for the external state to
-      be persisted after the pid that calls init_ex_state/1 exits. This is
-      the default.
-    - {:props, struct_def} Set the properties of the external state
-      structure. The struct_def is a keyword list identical to what you would
-      use to define any structure.
-  """
+    # ...
+
+    def do_foo do
+      # ... something that sets foo to true ...
+      merge_ex_state(foo: true)
+    end
+
+    def undo_foo do
+      # ... something that sets foo to false ...
+      merge_ex_state(foo: false)
+      # or: merge_ex_state(%{foo: false})
+    end
+
+    def foo? do
+      get_ex_state().foo
+    end
+
+  end
+  ```
+"""
   defmacro __using__(kwl) do
 
     persist = Keyword.get(kwl, :persist, true)
