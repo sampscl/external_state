@@ -54,7 +54,7 @@ dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:external_state, "~> 1.0.4"}
+    {:external_state, "~> 1.0.5"}
   ]
 end
 ```
