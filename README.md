@@ -2,6 +2,23 @@
 
 Store state, as a properties structure, externally to a process.
 
+## Motivation
+
+A process in Elixir stores data in its state that other processes may need -- a
+current status flag for instance. The standard way of sharing this data is to
+provide an API that results in a GenServer call. But, what if the GenServer
+is busy working on a long-running job? You could break your long running jobs
+into pieces and allow the GenServer to check its message queue. Yuck,
+cooperative multitasking and added complexity. You could create an ETS table or
+other external database record. Yuck, verbose, complex, and high-friction solution
+to what should be a simple problem.
+
+ExternalState helps solve this problem by providing a clean way of stashing
+some or all of your state in a data structure managed by a different process.
+
+Caveat lector: this works beautifully for named workers but doesn't work well
+with simple 1-for-1 workers because the state is managed using the module name.
+
 ## Usage
 ```elixir
 defmodule MyGenserver do
