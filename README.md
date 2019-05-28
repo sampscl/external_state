@@ -57,7 +57,8 @@ The following are added to your module when you `use` ExternalState:
 - `get_ex_state/0` Get the current external state or nil if no init yet
 - `put_ex_state/1` Set the external state, returns the state or nil if no init yet
 - `merge_ex_state/1` Update the external state with values from the
-  parameter, which can be a keyword list of keys and values or a map.
+  parameter, which can be a keyword list of keys and values or a map. Returns
+  the updated state or nil if no init yet.
 
 If ExternalState is `use`d with `persist: true`, then the external state will
 remain valid after the process that calls `init_ex_state/0` exits. This

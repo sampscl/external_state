@@ -22,7 +22,7 @@ defmodule ExternalState do
   * `init_ex_state/0` Initialize your external state; must call once, multiple calls are okay
   * `get_ex_state/0` Get the current external state or nil if no init yet
   * `put_ex_state/1` Set the external state, returns the state or nil if no init yet
-  * `merge_ex_state/1` Update the external state with values from the parameter, which can be a keyword list of keys and values or a map. returns the updated state or nil if no init yet.
+  * `merge_ex_state/1` Update the external state with values from the parameter, which can be a keyword list of keys and values or a map. Returns the updated state or nil if no init yet.
 
   ## Usage
   ```
