@@ -160,12 +160,12 @@ defmodule ExternalState do
       def merge_ex_state(kwl_or_map)
       def merge_ex_state(kwl) when is_list(kwl) do
         kwl
-        |> Map.new(kwl)
+        |> Map.new()
         |> merge_ex_state()
       end
       def merge_ex_state(m) when is_map(m) do
-        m
-        |> Map.merge(get_ex_state())
+        get_ex_state()
+        |> Kernel.struct!(m)
         |> put_ex_state()
       end
     end
