@@ -17,6 +17,7 @@ defmodule EphemeralStateTest do
 
       # expect that the external state was forgotten and reset to default when
       # the task exited
+      assert get_ex_state() == nil
       init_ex_state()
       assert get_ex_state() == default
     end

@@ -9,15 +9,49 @@ defmodule ExternalState do
   the module functions used to interact with the external state.
 
   ## Parameters
-  - kwl The keyword list describing the using module's external state. The
-    following are supported:
+  * kwl The keyword list describing the using module's external state. The following are supported:
+    * `{:persist, boolean}` Set persist to true for the external state to be persisted after the pid that calls `init_ex_state/1` exits. This is the default.
+    * `{:props, struct_def}` Set the properties of the external state structure. The struct_def is a keyword list identical to what you would use to define any structure.
 
-    - {:persist, boolean} Set persist to true for the external state to
-      be persisted after the pid that calls init_ex_state/1 exits. This is
-      the default.
-    - {:props, struct_def} Set the properties of the external state
-      structure. The struct_def is a keyword list identical to what you would
-      use to define any structure.
+  ## Functions and Properties
+  The following functions and properties are introduced to the module that
+  `use`s ExternalState:
+
+  * `@ex_state_struct` An atom name for your external state structure
+  * `default_ex_state/0` Get a state structure with default values from props
+  * `init_ex_state/0` Initialize your external state; must call once, multiple calls are okay
+  * `get_ex_state/0` Get the current external state or nil if no init yet
+  * `put_ex_state/1` Set the external state, returns the state or nil if no init yet
+  * `merge_ex_state/1` Update the external state with values from the parameter, which can be a keyword list of keys and values or a map. Returns the updated state or nil if no init yet.
+
+  ## Usage
+  ```
+  defmodule MyGenserver do
+    use ExternalState, persist: false, props: [foo: true]
+
+    def init(:ok) do
+      init_ex_state() # external state is now at the defaults specified in use
+    end
+
+    # ...
+
+    def do_foo do
+      # ... something that sets foo to true ...
+      merge_ex_state(foo: true)
+    end
+
+    def undo_foo do
+      # ... something that sets foo to false ...
+      merge_ex_state(foo: false)
+      # or: merge_ex_state(%{foo: false})
+    end
+
+    def foo? do
+      get_ex_state().foo
+    end
+
+  end
+  ```
   """
   defmacro __using__(kwl) do
 
@@ -126,12 +160,12 @@ defmodule ExternalState do
       def merge_ex_state(kwl_or_map)
       def merge_ex_state(kwl) when is_list(kwl) do
         kwl
-        |> Map.new(kwl)
+        |> Map.new()
         |> merge_ex_state()
       end
       def merge_ex_state(m) when is_map(m) do
-        m
-        |> Map.merge(get_ex_state())
+        get_ex_state()
+        |> Kernel.struct!(m)
         |> put_ex_state()
       end
     end
